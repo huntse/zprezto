@@ -9,3 +9,97 @@
 if [[ "$SHLVL" -eq 1 && ! -o LOGIN && -s "${ZDOTDIR:-$HOME}/.zprofile" ]]; then
   source "${ZDOTDIR:-$HOME}/.zprofile"
 fi
+
+# initialise environment variables here
+source "${HOME}/.early_fns"
+
+source_overrides .early_fns
+source_overrides .zshenv_early
+
+export HOSTNAME=$( hostname )
+export DOMAINNAME=$( perl -e "(\$_)= qq($HOSTNAME) =~ m|^[^.]+\.(.*)$|; print" )
+case "${DOMAINNAME}" in
+	*uncarved*)	DOMAINNAME="uncarved.com";;
+esac
+
+export OSTYPE=$( uname )
+
+if [ -f /etc/java/java.conf ] ; then
+	. /etc/java/java.conf
+	export JAVA_HOME
+	PATH=$JAVA_HOME/bin:$PATH
+fi
+
+for dir in "${SCALA_HOME}/lib/" "${JAVA_HOME}/lib" /usr/local/share/java ; do
+	if [ -d "${dir}" ] ; then
+		find $dir -name "*.jar" | while read j ; do
+			CLASSPATH="${CLASSPATH}:$j"
+
+		done
+	fi
+done
+
+# Unless we have some processes with a tty, assume that we want
+# a login timeout and some rlimits.  (Purely for safety)
+if [ -t 0 ] ; then
+	export GOT_TTY
+	GOT_TTY=$( ps auxww | awk "/awk/ {next} /^${USER}.* tty/ {print}" )
+fi
+if [ -n "${GOT_TTY}" ] ; then
+	export CONSOLE_HOST="${HOSTNAME}"
+	export CREATE_DETACHED_SCREEN=1
+else
+	TMOUT=4500
+	ulimit -St 3600
+	ulimit -Sc 0
+fi
+
+#Tie colon-delimited paths to arrays and disallow duplicates
+typeset -U manpath
+typeset -U path
+typeset -U fpath
+typeset -U ld_library_path
+typeset -U perl5lib
+typeset -U perllib
+typeset -U classpath
+typeset -U pythonpath
+
+
+if [[ "${ZSH_VERSION_TYPE}" == "new" ]] ; then
+	typeset -T LD_LIBRARY_PATH ld_library_path
+	typeset -T PERL5LIB perl5lib
+	typeset -T PERLLIB perllib
+	typeset -T CLASSPATH classpath
+	typeset -T PYTHONPATH pythonpath
+fi												
+
+path_add /sw/bin /sw/sbin /sbin /usr/sbin /usr/local/sbin /usr/X11R6/bin /opt/diet/bin
+path_add_front /usr/local/bin "${HOME}/bin" "${HOME}/.cabal/bin" "${HOME}/bin-${OSTYPE}"
+general_path_add MANPATH /sw/share/man /var/qmail/man /usr/local/share/man /opt/diet/man /usr/share/man /usr/man "${HOME}/share/man"
+
+export VISUAL=$( which vim )
+export EDITOR=$( which vim )
+export PAGER=$( which less )
+
+export INPUTRC="${HOME}/.inputrc"
+export TMPDIR="${HOME}/tmp"
+export TMP="${HOME}/tmp"
+export MAILDIR="${HOME}/mail/incoming/Maildir/"
+export MAIL="${HOME}/mail/incoming/Maildir/"
+
+export JAVA_TOOL_OPTIONS=-Dfile.encoding=UTF8
+if [ -f "${HOME}/.sbtconfig" ] ; then
+	. "${HOME}/.sbtconfig"
+else
+	SBT_OPTS="-Xms4G -Xmx8G -Xss1M -server -XX:+CMSClassUnloadingEnabled -XX:MaxPermSize=724M -XX:+UnlockExperimentalVMOptions -XX:+UseG1GC -Dcom.sun.management.jmxremote"
+fi
+export SBT_OPTS
+
+export HISTIGNORE="&:[bf]g:exit:cd:cd -:history"
+
+if [[ "${TERM}" == screen* ]] ; then
+	export IN_A_SCREEN=1
+fi
+
+setup_login_details
+source_overrides .zshenv

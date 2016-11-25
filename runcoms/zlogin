@@ -21,3 +21,7 @@ if (( $+commands[fortune] )); then
     print
   fi
 fi
+
+# Sourced in login shells
+source "${HOME}/.early_fns"
+source_overrides .zlogin
