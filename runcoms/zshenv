@@ -86,8 +86,14 @@ export PAGER=$( which less )
 export INPUTRC="${HOME}/.inputrc"
 export TMPDIR="${HOME}/tmp"
 export TMP="${HOME}/tmp"
-export MAILDIR="${HOME}/mail/incoming/Maildir/"
-export MAIL="${HOME}/mail/incoming/Maildir/"
+if [[ -d "${HOME}/mail/incoming/Maildir/" ]] ; then
+    export MAILDIR="${HOME}/mail/incoming/Maildir/"
+    export MAIL="${HOME}/mail/incoming/Maildir/"
+fi
+
+if [[ -z "${TZ}" ]] ; then
+    export TZ=Europe/London
+fi
 
 export JAVA_TOOL_OPTIONS=-Dfile.encoding=UTF8
 if [ -f "${HOME}/.sbtconfig" ] ; then
