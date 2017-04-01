@@ -106,7 +106,7 @@ export JAVA_TOOL_OPTIONS=-Dfile.encoding=UTF8
 if [ -f "${HOME}/.sbtconfig" ] ; then
 	. "${HOME}/.sbtconfig"
 else
-	SBT_OPTS="-Xms4G -Xmx8G -Xss1M -server -XX:+CMSClassUnloadingEnabled -XX:MaxPermSize=724M -XX:+UnlockExperimentalVMOptions -XX:+UseG1GC -Dcom.sun.management.jmxremote"
+	SBT_OPTS="-Xms4G -Xmx8G -Xss1M -server -XX:+CMSClassUnloadingEnabled -XX:+UnlockExperimentalVMOptions -Dcom.sun.management.jmxremote"
 fi
 export SBT_OPTS
 
