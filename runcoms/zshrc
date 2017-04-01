@@ -160,24 +160,24 @@ if [[ -z "${SKIP_SCREEN_CHECK}" ]] && [[ -z "${IN_A_SCREEN}" ]] ; then
 	fi
 
 
-			detached_screens=$(screen -list | grep Detached)
-			attached_screens=$(screen -list | grep Attached)
-			if [[ -n "${detached_screens}" ]] || [[ -n "${attached_screens}" ]]; then
-			if [[ -z "${NO_AUTO_SCREEN_ATTACH}" ]] ; then
-				if [[ -n "${SCREEN_ATTACH_DELAY}" ]] ; then
-					print_msg "Auto attach in ${SCREEN_ATTACH_DELAY}s"
-					sleep ${SCREEN_ATTACH_DELAY}
-				fi
-			fi
-			echo
-							echo "+-------------------------------------+"
-							echo "| Detached screens are available:     |"
-							echo "$detached_screens"
-							echo "$attached_screens"
-							echo "+-------------------------------------+"
-			if [[ -z "${NO_AUTO_SCREEN_ATTACH}" ]] ; then
-				screen -O -x -A
-			fi
+    detached_screens=$(screen -list | grep Detached)
+    attached_screens=$(screen -list | grep Attached)
+    if [[ -n "${detached_screens}" ]] || [[ -n "${attached_screens}" ]]; then
+    if [[ -z "${NO_AUTO_SCREEN_ATTACH}" ]] ; then
+        if [[ -n "${SCREEN_ATTACH_DELAY}" ]] ; then
+            print_msg "Auto attach in ${SCREEN_ATTACH_DELAY}s"
+            sleep ${SCREEN_ATTACH_DELAY}
+        fi
+    fi
+    echo
+    echo "+-------------------------------------+"
+    echo "| Detached screens are available:     |"
+    echo "$detached_screens"
+    echo "$attached_screens"
+    echo "+-------------------------------------+"
+    if [[ -z "${NO_AUTO_SCREEN_ATTACH}" ]] ; then
+        screen -O -x -A
+    fi
 	else
 		if [[ -n "${CREATE_DETACHED_SCREEN}" ]] ; then
 			screen -O -A -d -m
