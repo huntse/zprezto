@@ -53,20 +53,18 @@ setopt no_flow_control
 #vi keybindings
 #bindkey -v #done in zpreztorc
 #I like to have these around as well as the vi command mode history searches
-bindkey '^R' history-incremental-search-backward
-bindkey '^S' history-incremental-search-forward
-bindkey -M viins '^R' history-incremental-search-backward
-bindkey -M viins '^S' history-incremental-search-forward
-#I prefer the 'normal' versions of these (delete past the insertion point)
+bindkey -M viins \^R history-incremental-search-backward
+bindkey -M viins \^S history-incremental-search-forward
+##I prefer the 'normal' versions of these (delete past the insertion point)
 bindkey -rM viins '^H'
-bindkey -M viins '^H' backward-delete-char
+bindkey -M viins \^H backward-delete-char
 bindkey -rM viins '^W'
-bindkey -M viins '^W' backward-delete-word
+bindkey -M viins \^W backward-delete-word
 bindkey -M vicmd Q push-line
-##note you can only bind ^Q if flow-control is off (setopt no_flow_control)
-bindkey -M viins '^Q' push-line
-bindkey -rM viins '^V'
-bindkey -M viins '^V' run-help
+#note you can only bind ^Q if flow-control is off (setopt no_flow_control)
+bindkey -M viins \^Q push-line
+bindkey -rM viins \^V
+bindkey -M viins \^V run-help
 
 #Predictive text nonsense
 autoload -U predict-on
