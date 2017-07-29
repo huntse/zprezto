@@ -139,54 +139,6 @@ nempty_print_msg()
 nempty_print_msg "${IN_A_SCREEN}" "screen from ${MY_LOGIN_HOST}"
 nempty_print_msg "${SSH_AGENT_PID}" "ssh agent ${SSH_AGENT_PID}"
 nempty_print_msg "${TMOUT}" "Timeout is ${TMOUT}s"
-
-if [[ -n "$( which tmux)" ]] ; then
-	export GOT_TMUX=1
-fi
-if [[ -n "$( which screen)" ]] ; then
-	export GOT_SCREEN=1
-fi
-
-if [[ -z "${SKIP_SCREEN_CHECK}" ]] && [[ -z "${IN_A_SCREEN}" ]] ; then
-	if [[ -n "${GOT_TMUX}" ]] ; then
-		tmux new-session -ds placeholder 2>/dev/null
-		tmuxes=$(tmux ls)
-	else
-		tmuxes=""
-	fi
-	if [[ -n "${GOT_SCREEN}" ]] ; then
-		screens=$(screen -ls)
-	else
-		screens=""
-	fi
-
-
-    detached_screens=$(screen -list | grep Detached)
-    attached_screens=$(screen -list | grep Attached)
-    if [[ -n "${detached_screens}" ]] || [[ -n "${attached_screens}" ]]; then
-    if [[ -z "${NO_AUTO_SCREEN_ATTACH}" ]] ; then
-        if [[ -n "${SCREEN_ATTACH_DELAY}" ]] ; then
-            print_msg "Auto attach in ${SCREEN_ATTACH_DELAY}s"
-            sleep ${SCREEN_ATTACH_DELAY}
-        fi
-    fi
-    echo
-    echo "+-------------------------------------+"
-    echo "| Detached screens are available:     |"
-    echo "$detached_screens"
-    echo "$attached_screens"
-    echo "+-------------------------------------+"
-    if [[ -z "${NO_AUTO_SCREEN_ATTACH}" ]] ; then
-        screen -O -x -A
-    fi
-	else
-		if [[ -n "${CREATE_DETACHED_SCREEN}" ]] ; then
-			screen -O -A -d -m
-			print_msg "detached screen started"
-		fi
-	fi
-fi
-
 echo
 
 #because flow control belongs to a bygone era
