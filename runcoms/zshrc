@@ -113,9 +113,8 @@ watch=notme
 WATCHFMT='%D %T: %n has %a %l %(M.from %M.)'
 
 . ~/.aliases
-path_add /sw/bin /sw/sbin /sbin /usr/sbin /usr/local/sbin /usr/X11R6/bin "${HOME}/bin" "${HOME}/bin-${OSTYPE}" /opt/diet/bin /usr/local/opt/curl/bin
-general_path_add MANPATH /sw/share/man /var/qmail/man /usr/local/share/man /opt/diet/man /usr/share/man /usr/man
-PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting
+path_add /sbin /usr/sbin /usr/local/sbin /usr/X11R6/bin "${HOME}/bin" "${HOME}/bin-${OSTYPE}" /usr/local/opt/curl/bin
+general_path_add MANPATH /usr/local/share/man /opt/diet/man /usr/share/man /usr/man
 
 export PATH
 export MANPATH
