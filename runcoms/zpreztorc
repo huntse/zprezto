@@ -27,7 +27,6 @@ zstyle ':prezto:load' pmodule \
   'environment' \
   'gpg' \
   'terminal' \
-  'gpg' \
   'editor' \
   'history' \
   'history-substring-search' \
