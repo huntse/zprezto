@@ -102,6 +102,8 @@ if [[ -z "${TZ}" ]] ; then
     export TZ=Europe/London
 fi
 
+export POWERLINE_CONFIG_COMMAND="${MYDOTFILES}/powerline/powerline/scripts/powerline-config"
+
 export JAVA_TOOL_OPTIONS=-Dfile.encoding=UTF8
 if [ -f "${HOME}/.sbtconfig" ] ; then
 	. "${HOME}/.sbtconfig"
