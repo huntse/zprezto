@@ -111,9 +111,8 @@ watch=notme
 WATCHFMT='%D %T: %n has %a %l %(M.from %M.)'
 
 . ~/.aliases
-path_add /sw/bin /sw/sbin /sbin /usr/sbin /usr/local/sbin /usr/X11R6/bin "${HOME}/bin" "${HOME}/bin-${OSTYPE}" /opt/diet/bin /usr/local/opt/curl/bin
-general_path_add MANPATH /sw/share/man /var/qmail/man /usr/local/share/man /opt/diet/man /usr/share/man /usr/man
-PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting
+path_add /sbin /usr/sbin /usr/local/sbin /usr/X11R6/bin "${HOME}/bin" "${HOME}/bin-${OSTYPE}" /usr/local/opt/curl/bin
+general_path_add MANPATH /usr/local/share/man /opt/diet/man /usr/share/man /usr/man
 
 export PATH
 export MANPATH
@@ -138,6 +137,7 @@ nempty_print_msg()
 nempty_print_msg "${IN_A_SCREEN}" "screen from ${MY_LOGIN_HOST}"
 nempty_print_msg "${SSH_AGENT_PID}" "ssh agent ${SSH_AGENT_PID}"
 nempty_print_msg "${TMOUT}" "Timeout is ${TMOUT}s"
+echo
 
 #because flow control belongs to a bygone era
 stty -ixon -ixoff

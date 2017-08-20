@@ -39,15 +39,6 @@ if [ -f /etc/java/java.conf ] ; then
 	PATH=$JAVA_HOME/bin:$PATH
 fi
 
-for dir in "${SCALA_HOME}/lib/" "${JAVA_HOME}/lib" /usr/local/share/java ; do
-	if [ -d "${dir}" ] ; then
-		find $dir -name "*.jar" | while read j ; do
-			CLASSPATH="${CLASSPATH}:$j"
-
-		done
-	fi
-done
-
 # Unless we have some processes with a tty, assume that we want
 # a login timeout and some rlimits.  (Purely for safety)
 if [ -t 0 ] ; then
@@ -56,7 +47,6 @@ if [ -t 0 ] ; then
 fi
 if [ -n "${GOT_TTY}" ] ; then
 	export CONSOLE_HOST="${HOSTNAME}"
-	export CREATE_DETACHED_SCREEN=1
 else
 	TMOUT=4500
 	ulimit -St 3600
@@ -82,9 +72,9 @@ if [[ "${ZSH_VERSION_TYPE}" == "new" ]] ; then
 	typeset -T PYTHONPATH pythonpath
 fi												
 
-path_add /sw/bin /sw/sbin /sbin /usr/sbin /usr/local/sbin /usr/X11R6/bin /opt/diet/bin
-path_add_front /usr/local/bin "${HOME}/bin" "${HOME}/.cabal/bin" "${HOME}/bin-${OSTYPE}"
-general_path_add MANPATH /sw/share/man /var/qmail/man /usr/local/share/man /opt/diet/man /usr/share/man /usr/man "${HOME}/share/man"
+path_add /sbin /usr/sbin /usr/local/sbin /usr/X11R6/bin 
+path_add_front /usr/local/bin "${HOME}/bin" "${HOME}/bin-${OSTYPE}" "${GOPATH}/bin"
+general_path_add MANPATH /usr/local/share/man /usr/share/man /usr/man "${HOME}/share/man"
 
 export VISUAL=$( which vim )
 export EDITOR=$( which vim )
@@ -113,10 +103,6 @@ fi
 export SBT_OPTS
 
 export HISTIGNORE="&:[bf]g:exit:cd:cd -:history"
-
-if [[ "${TERM}" == screen* ]] ; then
-	export IN_A_SCREEN=1
-fi
 
 setup_login_details
 source_overrides .zshenv
