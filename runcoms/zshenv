@@ -88,6 +88,10 @@ if [[ -d "${HOME}/mail/incoming/Maildir/" ]] ; then
     export MAIL="${HOME}/mail/incoming/Maildir/"
 fi
 
+export GPG_TTY=$(tty)
+
+
+
 if [[ -z "${TZ}" ]] ; then
     export TZ=Europe/London
 fi
