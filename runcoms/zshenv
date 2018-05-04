@@ -49,8 +49,8 @@ if [ -n "${GOT_TTY}" ] ; then
 	export CONSOLE_HOST="${HOSTNAME}"
 else
 	TMOUT=4500
-	ulimit -St 3600
-	ulimit -Sc 0
+	#ulimit -St 3600
+	#ulimit -Sc 0
 fi
 
 #Tie colon-delimited paths to arrays and disallow duplicates
@@ -72,9 +72,13 @@ if [[ "${ZSH_VERSION_TYPE}" == "new" ]] ; then
 	typeset -T PYTHONPATH pythonpath
 fi												
 
+
 path_add /sbin /usr/sbin /usr/local/sbin /usr/X11R6/bin 
 path_add_front /usr/local/bin "${HOME}/bin" "${HOME}/bin-${OSTYPE}" "${GOPATH}/bin"
 general_path_add MANPATH /usr/local/share/man /usr/share/man /usr/man "${HOME}/share/man"
+path_add "${HOME}/.dotfiles/bin"
+
+export VIRTUALENVWRAPPER_PYTHON=$(which python3)
 
 export VISUAL=$( which vim )
 export EDITOR=$( which vim )
