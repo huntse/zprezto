@@ -86,6 +86,9 @@ export TMP="${HOME}/tmp"
 if [[ -d "${HOME}/mail/incoming/Maildir/" ]] ; then
     export MAILDIR="${HOME}/mail/incoming/Maildir/"
     export MAIL="${HOME}/mail/incoming/Maildir/"
+elif [[ -d "${HOME}/Maildir/" ]] ; then
+    export MAILDIR="${HOME}/Maildir/"
+    export MAIL="${HOME}/Maildir/"
 fi
 
 if [[ -z "${TZ}" ]] ; then
