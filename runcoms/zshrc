@@ -134,6 +134,8 @@ nempty_print_msg()
 	fi
 }
 
+[ -f "/usr/local/bin/virtualenvwrapper.sh" ] && source "/usr/local/bin/virtualenvwrapper.sh" >& /dev/null
+
 nempty_print_msg "${IN_A_SCREEN}" "screen from ${MY_LOGIN_HOST}"
 nempty_print_msg "${SSH_AGENT_PID}" "ssh agent ${SSH_AGENT_PID}"
 nempty_print_msg "${TMOUT}" "Timeout is ${TMOUT}s"
