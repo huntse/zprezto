@@ -73,7 +73,7 @@ if [[ "${ZSH_VERSION_TYPE}" == "new" ]] ; then
 fi												
 
 path_add /sbin /usr/sbin /usr/local/sbin /usr/X11R6/bin 
-path_add_front /usr/local/bin "${HOME}/bin" "${HOME}/bin-${OSTYPE}" "${GOPATH}/bin"
+path_add_front /usr/local/bin "${HOME}/bin" "${HOME}/bin-${OSTYPE}" "${GOPATH}/bin" "${HOME}/.yarn/bin"
 general_path_add MANPATH /usr/local/share/man /usr/share/man /usr/man "${HOME}/share/man"
 
 export VISUAL=$( which vim )
@@ -103,6 +103,25 @@ fi
 export SBT_OPTS
 
 export HISTIGNORE="&:[bf]g:exit:cd:cd -:history"
+
+PATH="/home/sean/perl5/bin${PATH:+:${PATH}}"; export PATH;
+PERL5LIB="/home/sean/perl5/lib/perl5${PERL5LIB:+:${PERL5LIB}}"; export PERL5LIB;
+PERL_LOCAL_LIB_ROOT="/home/sean/perl5${PERL_LOCAL_LIB_ROOT:+:${PERL_LOCAL_LIB_ROOT}}"; export PERL_LOCAL_LIB_ROOT;
+PERL_MB_OPT="--install_base \"/home/sean/perl5\""; export PERL_MB_OPT;
+PERL_MM_OPT="INSTALL_BASE=/home/sean/perl5"; export PERL_MM_OPT;
+
+# Node
+# NPM packages in homedir
+NPM_PACKAGES="$HOME/.npm-packages"
+
+# Tell our environment about user-installed node tools
+PATH="$NPM_PACKAGES/bin:$PATH"
+# Unset manpath so we can inherit from /etc/manpath via the `manpath` command
+unset MANPATH  # delete if you already modified MANPATH elsewhere in your configuration
+MANPATH="$NPM_PACKAGES/share/man:$(manpath)"
+
+# Tell Node about these packages
+NODE_PATH="$NPM_PACKAGES/lib/node_modules:$NODE_PATH"
 
 setup_login_details
 source_overrides .zshenv
