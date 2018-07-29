@@ -18,9 +18,9 @@ pmodload 'helper'
 
 # Define variables.
 _prompt_paradoxsean_current_bg='NONE'
-_prompt_paradoxsean_segment_separator=''
+_prompt_paradoxsean_segment_separator=''
 #soft  " "
-_prompt_paradoxsean_rsegment_separator=''
+_prompt_paradoxsean_rsegment_separator=''
 #soft " "
 
 _prompt_paradoxsean_start_time=$SECONDS
