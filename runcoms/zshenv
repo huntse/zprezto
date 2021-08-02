@@ -25,6 +25,16 @@ source "${HOME}/.early_fns"
 source_overrides .early_fns
 source_overrides .zshenv_early
 
+if [ -f "${HOME}/.cargo/env" ] ; then
+    source "${HOME}/.cargo/env"
+fi
+
+LXQT_SUDO=$( which lxqt-sudo )
+if [ -x "${LXQT_SUDO}" ] ; then
+    export SUDO_ASKPASS="${LXQT_SUDO}"
+fi
+unset LXQT_SUDO
+
 export HOSTNAME=$( hostname )
 export DOMAINNAME=$( perl -e "(\$_)= qq($HOSTNAME) =~ m|^[^.]+\.(.*)$|; print" )
 case "${DOMAINNAME}" in
@@ -53,6 +63,8 @@ else
 	#ulimit -Sc 0
 fi
 
+fpath_add "${HOME}/.zfunc"
+
 #Tie colon-delimited paths to arrays and disallow duplicates
 typeset -U manpath
 typeset -U path
@@ -70,10 +82,10 @@ if [[ "${ZSH_VERSION_TYPE}" == "new" ]] ; then
 	typeset -T PERLLIB perllib
 	typeset -T CLASSPATH classpath
 	typeset -T PYTHONPATH pythonpath
-fi												
+fi
 
 
-path_add /sbin /usr/sbin /usr/local/sbin /usr/X11R6/bin 
+path_add /sbin /usr/sbin /usr/local/sbin /usr/X11R6/bin
 path_add_front /usr/local/bin "${HOME}/bin" "${HOME}/bin-${OSTYPE}" "${GOPATH}/bin" "${HOME}/.yarn/bin"
 general_path_add MANPATH /usr/local/share/man /usr/share/man /usr/man "${HOME}/share/man"
 path_add "${HOME}/.dotfiles/bin"
@@ -133,6 +145,11 @@ MANPATH="$NPM_PACKAGES/share/man:$(manpath)"
 
 # Tell Node about these packages
 NODE_PATH="$NPM_PACKAGES/lib/node_modules:$NODE_PATH"
+ALACRITTY="$(which alacritty)"
+
+if [ -x "${ALACRITTY}" ] ; then
+    export TERMINAL="${ALACRITTY}"
+fi
 
 setup_login_details
 source_overrides .zshenv

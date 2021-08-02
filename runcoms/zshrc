@@ -35,14 +35,14 @@ setopt hist_reduce_blanks
 setopt interactive_comments
 #make completion list smaller by using variable column sizes?
 setopt list_packed
-#allow pushd with no args to pushd $HOME? 
+#allow pushd with no args to pushd $HOME?
 #(otherwise swap with the top of dirstack)
 setopt nopushd_to_home
 #ignore duplicate dirs passed onto the dir stack?
 setopt pushd_ignore_dups
 #map ! in $PROMPT to the history number?
 setopt prompt_bang
-#hup background jobs on exit?  We can always use "nohup", "disown" or 
+#hup background jobs on exit?  We can always use "nohup", "disown" or
 #"&!" after the commands when we want to
 setopt hup
 #Allow multiple redirects and tees.  Warning, will make "foo 2>&1 > /dev/null | bar" fail
@@ -79,21 +79,28 @@ colors
 
 # Allow for functions in the prompt.
 setopt PROMPT_SUBST
- 
+<<<<<<< HEAD
+
 # Autoload zsh functions.
 fpath=(~/.zsh/functions $fpath)
 autoload -U ~/.zsh/functions/*(:t)
- 
+
+=======
+
+# Autoload zsh functions.
+fpath=(~/.zsh/functions $fpath)
+autoload -U ~/.zsh/functions/*(:t)
+
 # Enable auto-execution of functions.
 typeset -ga preexec_functions
 typeset -ga precmd_functions
 typeset -ga chpwd_functions
- 
+
 # Append git functions needed for prompt.
 preexec_functions+='preexec_update_git_vars'
 precmd_functions+='precmd_update_git_vars'
 chpwd_functions+='chpwd_update_git_vars'
- 
+
 #where to save shell history
 export HISTFILE=~/.zsh_history
 
@@ -134,11 +141,12 @@ nempty_print_msg()
 	fi
 }
 
-if [ -f "/usr/local/bin/virtualenvwrapper.sh" ] ; then
-    source "/usr/local/bin/virtualenvwrapper.sh" >& /dev/null
-elif [ -f "/usr/share/virtualenvwrapper/virtualenvwrapper.sh" ] ; then
-    source "/usr/share/virtualenvwrapper/virtualenvwrapper.sh" >& /dev/null
-fi
+for v in "/usr/bin/virtualenvwrapper-3.sh" "/usr/local/bin/virtualenvwrapper.sh" "/usr/share/virtualenvwrapper/virtualenvwrapper.sh" ; do
+    if [ -f "${v}" ] ; then
+        source "${v}" >& /dev/null
+        break
+    fi
+done
 
 nempty_print_msg "${IN_A_SCREEN}" "screen from ${MY_LOGIN_HOST}"
 nempty_print_msg "${SSH_AGENT_PID}" "ssh agent ${SSH_AGENT_PID}"
@@ -148,4 +156,5 @@ echo
 #because flow control belongs to a bygone era
 stty -ixon -ixoff
 
+source_if "${HOME}/.fzf.zsh"
 source_overrides .zshrc
