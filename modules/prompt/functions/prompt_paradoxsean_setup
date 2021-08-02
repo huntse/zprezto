@@ -86,7 +86,7 @@ function prompt_paradoxsean_build_rprompt {
   #prompt_paradoxsean_start_rsegment blue black '$_prompt_paradoxsean_pwd'
   #prompt_paradoxsean_start_rsegment black default '%F{blue}[%(?..%S)%!%(?..:%?)%s %F{green}%D{%H:%M:%S}%F{blue}]%f'
   print -n '$_prompt_paradoxsean_pwd'
-  print -n '%F{blue}[%(?..%S)%!%(?..:%?)%s %F{green}%D{%H:%M:%S}%F{blue}]%f'
+  print -n '%F{blue}[%(?..%S)%!%(?..:%?)%s %F{green}%D{%H:%M:%S}%F{blue}] $(task +in +PENDING count) %f'
 }
 
 
