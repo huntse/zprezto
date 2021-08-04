@@ -92,8 +92,11 @@ path_add "${HOME}/.dotfiles/bin"
 
 export VIRTUALENVWRAPPER_PYTHON=$(which python3)
 
-export VISUAL=$( which vim )
-export EDITOR=$( which vim )
+export EDITOR=$( which nvim )
+if [ -z "${EDITOR}" ] ; then
+    EDITOR=$(which vim)
+fi
+export VISUAL=$EDITOR
 export PAGER=$( which less )
 
 export INPUTRC="${HOME}/.inputrc"
