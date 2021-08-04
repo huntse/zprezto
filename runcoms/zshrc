@@ -79,13 +79,6 @@ colors
 
 # Allow for functions in the prompt.
 setopt PROMPT_SUBST
-<<<<<<< HEAD
-
-# Autoload zsh functions.
-fpath=(~/.zsh/functions $fpath)
-autoload -U ~/.zsh/functions/*(:t)
-
-=======
 
 # Autoload zsh functions.
 fpath=(~/.zsh/functions $fpath)
