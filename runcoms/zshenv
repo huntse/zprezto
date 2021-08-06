@@ -38,29 +38,29 @@ unset LXQT_SUDO
 export HOSTNAME=$( hostname )
 export DOMAINNAME=$( perl -e "(\$_)= qq($HOSTNAME) =~ m|^[^.]+\.(.*)$|; print" )
 case "${DOMAINNAME}" in
-	*uncarved*)	DOMAINNAME="uncarved.com";;
+    *uncarved*)	DOMAINNAME="uncarved.com";;
 esac
 
 export OSTYPE=$( uname )
 
 if [ -f /etc/java/java.conf ] ; then
-	. /etc/java/java.conf
-	export JAVA_HOME
-	PATH=$JAVA_HOME/bin:$PATH
+    . /etc/java/java.conf
+    export JAVA_HOME
+    PATH=$JAVA_HOME/bin:$PATH
 fi
 
 # Unless we have some processes with a tty, assume that we want
 # a login timeout and some rlimits.  (Purely for safety)
 if [ -t 0 ] ; then
-	export GOT_TTY
-	GOT_TTY=$( ps auxww | awk "/awk/ {next} /^${USER}.* tty/ {print}" )
+    export GOT_TTY
+    GOT_TTY=$( ps auxww | awk "/awk/ {next} /^${USER}.* tty/ {print}" )
 fi
 if [ -n "${GOT_TTY}" ] ; then
-	export CONSOLE_HOST="${HOSTNAME}"
+    export CONSOLE_HOST="${HOSTNAME}"
 else
-	TMOUT=4500
-	#ulimit -St 3600
-	#ulimit -Sc 0
+    TMOUT=4500
+    #ulimit -St 3600
+    #ulimit -Sc 0
 fi
 
 fpath_add "${HOME}/.zfunc"
@@ -77,11 +77,11 @@ typeset -U pythonpath
 
 
 if [[ "${ZSH_VERSION_TYPE}" == "new" ]] ; then
-	typeset -T LD_LIBRARY_PATH ld_library_path
-	typeset -T PERL5LIB perl5lib
-	typeset -T PERLLIB perllib
-	typeset -T CLASSPATH classpath
-	typeset -T PYTHONPATH pythonpath
+    typeset -T LD_LIBRARY_PATH ld_library_path
+    typeset -T PERL5LIB perl5lib
+    typeset -T PERLLIB perllib
+    typeset -T CLASSPATH classpath
+    typeset -T PYTHONPATH pythonpath
 fi
 
 

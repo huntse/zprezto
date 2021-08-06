@@ -19,9 +19,12 @@ fi
 # Editors
 #
 
-export EDITOR='vim'
-export VISUAL='vim'
-export PAGER='less'
+export EDITOR=$( which nvim )
+if [ -z "${EDITOR}" ] ; then
+    EDITOR=$(which vim)
+fi
+export VISUAL=$EDITOR
+export PAGER=$( which less )
 
 #
 # Language
