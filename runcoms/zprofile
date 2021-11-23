@@ -1,3 +1,4 @@
+#!/bin/zsh
 #
 # Executes commands at login pre-zshrc.
 #
@@ -79,6 +80,6 @@ fi
 
 TMPPREFIX="${TMPDIR%/}/zsh"
 
-export PATH="$HOME/.poetry/bin:$PATH"
-export PATH="$HOME/.cargo/bin:$PATH"
+path_add "${HOME}/.poetry/bin"
+path_add "${HOME}/.cargo/bin"
 source_overrides .zprofile

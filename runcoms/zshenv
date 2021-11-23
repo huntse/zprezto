@@ -153,5 +153,7 @@ if [ -x "${ALACRITTY}" ] ; then
     export TERMINAL="${ALACRITTY}"
 fi
 
+source_if "${HOME}/.cargo/env"
+
 setup_login_details
 source_overrides .zshenv
